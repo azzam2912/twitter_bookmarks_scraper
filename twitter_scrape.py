@@ -159,7 +159,7 @@ def save_to_json(data, filename):
     print(f"Data saved to {filepath}")
 
 def main(driver, is_login, is_continue=False, scroll_position=0, processed_urls_set = set(), mode = "1"):
-    max_posts = input("Enter the maximum number of bookmarks to scrape (by default 1000): ")
+    max_posts = input("Enter the maximum number of posts to scrape (by default 1000): ")
     if not max_posts or len(max_posts) == 0:
         max_posts = 1000
     max_posts = int(max_posts)
@@ -189,9 +189,9 @@ def main(driver, is_login, is_continue=False, scroll_position=0, processed_urls_
             # Save bookmarks to JSON file
             current_time = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
             save_to_json(bookmarks, f'twitter_bookmarks___{current_time}___{len(bookmarks)}.json')
-            print(f"Scraped {len(bookmarks)} bookmarks.")
+            print(f"Scraped {len(bookmarks)} posts.")
         else:
-            print("Login failed. Unable to scrape bookmarks.")
+            print("Login failed. Unable to scrape posts.")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
     finally:
