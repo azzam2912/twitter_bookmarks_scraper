@@ -1,3 +1,5 @@
 *.json
 .venv
 selenium
+.DS_Store
+.env*

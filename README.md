@@ -15,7 +15,7 @@ Provide the scraper agent by Selenium and the notebook for processing (classifyi
 - Now you are good to go :)
 
 ## To Scrape
-To scrape you have to run ```twitter_bookmark_scraper.py```
+To scrape you have to run ```main.py```
 
 please look at the terminal/command prompt to see the indicator or instruction.
 
