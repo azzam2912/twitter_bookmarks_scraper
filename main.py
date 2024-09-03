@@ -9,6 +9,7 @@ import os
 import signal
 import twitter_scrape as scraper
 import twitter_delete_bookmarks as deleter
+import twitter_bookmark_adder as adder
 
 def timeout():
     def handler():
@@ -68,7 +69,7 @@ if __name__ == "__main__":
     driver = webdriver.Chrome()  # Make sure you have ChromeDriver installed and in PATH
     is_login = login_to_twitter(driver)
     while True:
-        mode = input("What do you want to do? [scrape (1), delete (2), exit (3)] (by default scrape): ")
+        mode = input("What do you want to do? [scrape (1), delete (2), add bookmarks (3), exit (4)] (default scrape): ")
         try:
             if not mode or len(mode) == 0:
                 mode = "1" 
@@ -77,6 +78,8 @@ if __name__ == "__main__":
             elif mode == "2":
                 deleter.main(driver, is_login, False, 0, set())
             elif mode == "3":
+                adder.main(driver, is_login)  # Call the main function from the new module
+            elif mode == "4":
                 break
         except Exception as e:
             print(f"An error occurred. Please try again\n\n Error: {str(e)}")

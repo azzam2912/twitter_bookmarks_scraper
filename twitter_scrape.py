@@ -9,7 +9,7 @@ import time
 import json
 import os
 
-def scrape_bookmarks(url, driver, max_posts=1000, scroll_pause_time=1.2, is_continue=False, scroll_position=0, processed_urls=set()):
+def scrape(url, driver, max_posts=1000, scroll_pause_time=1.2, is_continue=False, scroll_position=0, processed_urls=set()):
     bookmarks = []
     
     if not is_continue:
@@ -126,7 +126,7 @@ def scrape_bookmarks(url, driver, max_posts=1000, scroll_pause_time=1.2, is_cont
                     print(f"\nError extracting tweet data: {str(e)}")
 
             # Check if we've reached the end of the page
-            if scroll_position == scroll_position_old:
+            if scroll_position >= scroll_position_old:
                 counter += 1
                 print("counter become (max 5)", counter)
                 if counter > 5:
@@ -151,7 +151,8 @@ def scrape_bookmarks(url, driver, max_posts=1000, scroll_pause_time=1.2, is_cont
 
 def save_to_json(data, filename):
     script_dir = os.path.dirname(os.path.realpath(__file__))
-    filepath = os.path.join(script_dir, filename)
+    filepath = os.path.join(script_dir, "bookmarks")
+    filepath = os.path.join(filepath, filename)
     
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
@@ -185,7 +186,7 @@ def main(driver, is_login, is_continue=False, scroll_position=0, processed_urls_
     try:
         if is_login:
             # Scrape bookmarks
-            bookmarks, scroll_position, processed_urls_set = scrape_bookmarks(main_url, driver, max_posts, scroll_pause_time, is_continue, scroll_position, processed_urls_set)
+            bookmarks, scroll_position, processed_urls_set = scrape(main_url, driver, max_posts, scroll_pause_time, is_continue, scroll_position, processed_urls_set)
             # Save bookmarks to JSON file
             current_time = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
             save_to_json(bookmarks, f'twitter_bookmarks___{current_time}___{len(bookmarks)}.json')

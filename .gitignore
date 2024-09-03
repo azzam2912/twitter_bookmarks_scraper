@@ -3,3 +3,6 @@
 selenium
 .DS_Store
 .env*
+bookmarks
+processed
+__pycache__
